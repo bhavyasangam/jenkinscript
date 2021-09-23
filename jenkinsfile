@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "Maven3.8"
+        maven "MAVEN 3.8"
     }
 
     stages {
@@ -13,10 +13,10 @@ pipeline {
                 git 'https://github.com/bhavyasangam/Bankapp.git'
 
                 // Run Maven on a Unix agent.
-                //sh "mvn -Dmaven.test.failure.ignore=true clean package"
+               // sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 // To run Maven on a Windows agent, use
-                 bat "mvn -f Day1-BankApp/pom.xml -Dmaven.test.failure.ignore=true clean package"
+                 bat "mvn   -f Day1-BankApp/pom.xml -Dmaven.test.failure.ignore=true clean package"
             }
 
             post {
@@ -28,20 +28,9 @@ pipeline {
                 }
             }
         }
-         stage('test'){
-            steps{
-                bat "mvn -f Day1-BankApp/pom.xml test"
-            }
-        }
-        stage('acceptance'){
-            steps{
-                input('Do you want to proceed?')
-            }
-        }
         stage('deploy'){
             steps{
-                echo "Deploy into tomcat"
-                build 'deploy-war-from-jenkins-to-tomcat'
+                echo "deploy into tomcat"
             }
         }
     }
